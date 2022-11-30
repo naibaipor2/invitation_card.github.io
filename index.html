@@ -2,27 +2,21 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <script>
-function preloadImages(array) {
-    if (!preloadImages.list) {
-        preloadImages.list = [];
-    }
-    var list = preloadImages.list;
-    for (var i = 0; i < array.length; i++) {
-        var img = new Image();
-        img.onload = function() {
-            var index = list.indexOf(this);
-            if (index !== -1) {
-                // remove image from the array once it's loaded
-                // for memory consumption reasons
-                list.splice(index, 1);
-            }
-        }
-        list.push(img);
-        img.src = array[i];
+var images = [];
+function preload() {
+    for (var i = 0; i < arguments.length; i++) {
+        images[i] = new Image();
+        images[i].src = preload.arguments[i];
     }
 }
 
-preloadImages(["https://drive.google.com/uc?export=view&id=1UFTBZh_HFKIKOqe0_gb_ST0GDhjRjsEv", "https://drive.google.com/uc?export=view&id=1hvDAqxCNqTlGNvjrh74wYqVX1hPq7WWr"]);
+//-- usage --//
+preload(
+    "8.jpg",
+    "9.jpg"
+)
+
+
 </script>
 <style>
 
@@ -262,7 +256,7 @@ body {
 
 
 </style>
-
+<body onLoad="javascript:preload()">
 
 <div class="container"> 
  <div class="hearts">
@@ -279,7 +273,7 @@ body {
   
   <div class="card">
   
-  <div class="text"><img class="image99" width="100%"   src="https://drive.google.com/uc?export=view&id=1hvDAqxCNqTlGNvjrh74wYqVX1hPq7WWr" usemap=""></div>
+  <div class="text"><img class="image99" width="100%"   src="8.jpg" usemap=""></div>
   <map name="workmap">
   <area shape="rect" coords="350,550,440,650" alt="location" href="https://goo.gl/maps/yskXDBaDYY8bYEzj7" target="_blank">
   
@@ -312,13 +306,13 @@ $(document).ready(function(){
    		aa=2 ;
     	$('.card').css("transform", "rotateY(180deg)");   
         setTimeout(function () {
-        $('.image99').attr('src', 'https://drive.google.com/uc?export=view&id=1UFTBZh_HFKIKOqe0_gb_ST0GDhjRjsEv');$('.image99').attr('usemap','#workmap');$('.image99').css("transform", "rotateY(180deg)");}, 500 );
+        $('.image99').attr('src', images[1].src);$('.image99').attr('usemap','#workmap');$('.image99').css("transform", "rotateY(180deg)");}, 500 );
         
         }else{
         aa=1;
         $('.card').css("transform", "rotateY(0deg)");   
         setTimeout(function () {
-        $('.image99').attr('src', 'https://drive.google.com/uc?export=view&id=1hvDAqxCNqTlGNvjrh74wYqVX1hPq7WWr');$('.image99').attr('usemap','');$('.image99').css("transform", "rotateY(0deg)");}, 500 );
+        $('.image99').attr('src', images[0].src);$('.image99').attr('usemap','');$('.image99').css("transform", "rotateY(0deg)");}, 500 );
         
         }       
    
@@ -331,3 +325,4 @@ $(document).ready(function(){
  
 });
 </script>
+</body>
