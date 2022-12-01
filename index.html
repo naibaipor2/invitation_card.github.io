@@ -1,23 +1,6 @@
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-</head>
-<script>
-var images = [];
-function preload() {
-    for (var i = 0; i < arguments.length; i++) {
-        images[i] = new Image();
-        images[i].src = preload.arguments[i];
-    }
-}
-
-//-- usage --//
-preload(
-    "8.jpg",
-    "9.jpg"
-)
-
-
-</script>
+<link href='https://fonts.googleapis.com/css?family=Kanit' rel='stylesheet'>
 <style>
 
 body {
@@ -26,6 +9,19 @@ body {
   align-items: center;
   height: 100vh;
   background-color: #fae1dd;
+  font-family: 'Kanit';font-size: 18px;
+5B443F
+}
+
+.abcc {
+  text-shadow: 2px 2px 10px #FFFFFF;
+  visibility: hidden;
+  z-index:999;
+  top: 480px;
+  left: 80px;
+  position:absolute;
+  text-align:center;
+  animation: up 3s linear infinite;
 }
 
 .container {
@@ -187,6 +183,7 @@ body {
   
 }
 
+
 .one, .two, .three, .four, .five {
   background-color: red;
   display: inline-block;
@@ -254,18 +251,20 @@ body {
   }
 }
 
-
 </style>
-<body onLoad="javascript:preload()">
-
+</head>
+<body>
+        
+  
 <div class="container"> 
+<div class="abcc" style="color:5B443F">แตะเพื่อดูด้านหลัง</div>
  <div class="hearts">
     <div class="one"></div>
     <div class="two"></div>
     <div class="three"></div>
     <div class="four"></div>
     <div class="five"></div>
-  </div>
+  </div>    
 <div class="valentines">
   <div class="envelope"></div>
   <div class="front"></div>
@@ -273,7 +272,7 @@ body {
   
   <div class="card">
   
-  <div class="text"><img class="image99" width="100%"   src="8.jpg" usemap=""></div>
+  <div class="text"><img class="image99" width="100%"   src="8.jpg" usemap=""><img class="image9" width="00%"   src="9.jpg" usemap=""></div>
   <map name="workmap">
   <area shape="rect" coords="350,550,440,650" alt="location" href="https://goo.gl/maps/yskXDBaDYY8bYEzj7" target="_blank">
   
@@ -290,29 +289,53 @@ body {
 
 <script>
 var aa=0;
+var bb=0;
 $(document).ready(function(){
+
+$('.image99').attr('width', "100%");
+$('.image9').attr('width', "00%");
+
   $('.container').click(function(){
   
   if(aa==0){
-  aa=1;
-  
+    aa=1;  
     var div = $('.card');
     div.animate({top: '-350px', height: '370px'}, "slow", function () {
         $('.card').css('z-index', 10)    });            
     div.animate({top: '-300px',left: '-100px', width: '480px',height: '680px'}, "slow"); 
-    }else{
+    
+setTimeout(function () {
+	if(aa==1){
+	$('.abcc').css('visibility', "visible")
+}
+},5000)
+
+}else{
     
     if(aa==1){
-   		aa=2 ;
+	$('.abcc').css('visibility', "hidden")
+	aa=2 ;
     	$('.card').css("transform", "rotateY(180deg)");   
         setTimeout(function () {
-        $('.image99').attr('src', images[1].src);$('.image99').attr('usemap','#workmap');$('.image99').css("transform", "rotateY(180deg)");}, 500 );
+        $('.image99').attr('width', "00%");
+$('.image9').attr('width', "100%");$('.image9').attr('usemap','#workmap');$('.image9').css("transform", "rotateY(180deg)");}, 500 );
         
+setTimeout(function () {
+	if(aa==2 && bb==0){
+	bb=1;
+	$('.abcc').css('visibility', "visible")
+        $('.abcc').css('left', "0px")
+	$('.abcc').html("แตะหรือแสกน QR code เพื่อเปิดแผนที่")
+}
+},5000)
+
         }else{
+	$('.abcc').css('visibility', "hidden")
         aa=1;
         $('.card').css("transform", "rotateY(0deg)");   
         setTimeout(function () {
-        $('.image99').attr('src', images[0].src);$('.image99').attr('usemap','');$('.image99').css("transform", "rotateY(0deg)");}, 500 );
+        $('.image99').attr('width', "100%");
+$('.image9').attr('width', "00%");$('.image99').attr('usemap','');$('.image99').css("transform", "rotateY(0deg)");}, 500 );
         
         }       
    
